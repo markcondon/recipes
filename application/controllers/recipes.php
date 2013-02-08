@@ -14,16 +14,40 @@ class Recipes extends CI_Controller {
 	}
 
 	public function name($recipeName = FALSE){
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		$this->load->view('templates/head');
+		
 		$data['recipe_item'] = $this->recipes_model->get_recipes('name', $recipeName);
-		$this->load->view('recipes/name', $data);
+
+		$data['comments'] = $this->recipes_model->get_comments($data['recipe_item'][0]['recipe_id']);
+		
+		$this->form_validation->set_rules('rating', 'Rating', 'required');
+		$this->form_validation->set_rules('comment', 'Comment', 'required');
+
+		
+		if ($this->form_validation->run() === FALSE)
+		{
+
+			$this->load->view('recipes/name', $data);
+
 			
+		}
+		else
+		{
+			$name = $this->recipes_model->set_comment();
+			$this->load->view('', $data);
+ 
+		}
+		
 	}
 
 	public function sort($sortBy = FALSE, $sortName = False){
 		
 		$data['recipe_item'] = $this->recipes_model->get_recipes($sortBy, $sortName);
 		$this->load->view('recipes/sort', $data);
-		print_r($data['recipe_item']);
 	}
 
 	public function create()
@@ -31,8 +55,8 @@ class Recipes extends CI_Controller {
 
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		
-		
+		$this->load->view('templates/head');
+
 		$this->form_validation->set_rules('name', 'Recipe Name', 'required|is_unique[recipes.name]');
 		$this->form_validation->set_rules('ingredients', 'Recipe Ingredients ', 'required');
 		$this->form_validation->set_rules('steps', 'Recipe Steps',  'required');
@@ -43,7 +67,7 @@ class Recipes extends CI_Controller {
 		if ($this->form_validation->run() === FALSE)
 		{
 
-			//$this->load->view('templates/recipe_failure');
+			$this->load->view('templates/recipe_failure');
 			$this->load->view('recipes/create');
 
 			
