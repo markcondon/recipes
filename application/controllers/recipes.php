@@ -67,7 +67,7 @@ class Recipes extends CI_Controller {
 		if ($this->form_validation->run() === FALSE)
 		{
 
-			$this->load->view('templates/recipe_failure');
+			//$this->load->view('templates/recipe_failure');
 			$this->load->view('recipes/create');
 
 			
@@ -76,7 +76,7 @@ class Recipes extends CI_Controller {
 		{
 			$this->recipes_model->set_recipe();
 			
-			$this->load->view('templates/recipe_add_success');
+			//$this->load->view('templates/recipe_add_success');
 			$this->load->view('recipes/create');
 		}
 	}

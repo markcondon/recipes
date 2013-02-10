@@ -12,8 +12,7 @@
 	<label for="text">Steps</label>
 	<textarea name="steps"></textarea><br />
 
-	<label for="name">uid</label> 
-	<input type="input" name="user_id" /><br />
+	<input type="hidden" name="user_id" value="<?php echo $this->session->userdata('user_id'); ?>"/><br />
 
 	<label for="name">Category</label> 
 	<input type="input" name="category" /><br />

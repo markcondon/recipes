@@ -39,6 +39,7 @@
 */
 
 $route['recipes/create'] = 'recipes/create';
+$route['signup'] = 'users/signup';
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
